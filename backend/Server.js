@@ -16,6 +16,7 @@ app.use("/api/users", UserRoutes);
 
 
 // Main function 
+if(process.env.NODE_ENV !== "production"){
 const start = async () => {
   try {
 
@@ -29,3 +30,5 @@ const start = async () => {
   }
 };
 start();
+};
+export default app

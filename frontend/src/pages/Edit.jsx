@@ -3,6 +3,9 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+axios.defaults.baseURL = backendUrl;
+
 const Edit = () => {
   const { id } = useParams();
   const [form, setForm] = useState({ name: "", age: "", email: "" });
@@ -10,7 +13,7 @@ const Edit = () => {
 
   useEffect(() => {
     const getUser = async () => {
-      const res = await axios.get("http://localhost:5000/api/users");
+      const res = await axios.get("/api/users");
       const user = res.data.find(u => u._id === id);
       setForm(user);
     };
@@ -24,7 +27,7 @@ const Edit = () => {
   const handleSubmit = async (e) => {
   e.preventDefault();
   try {
-    await axios.put(`http://localhost:5000/api/users/${id}`, form);
+    await axios.put(`/api/users/${id}`, form);
     toast.success("User updated successfully!");
     navigate("/");
   } catch (err) {

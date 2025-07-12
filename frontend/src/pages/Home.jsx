@@ -3,12 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+axios.defaults.baseURL = backendUrl;
+
 const Home = () => {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
 
   const fetchUsers = async () => {
-    const res = await axios.get("http://localhost:5000/api/users");
+    const res = await axios.get("/api/users");
     setUsers(res.data);
   };
 
@@ -18,7 +21,7 @@ const Home = () => {
 
   const deleteUser = async (id) => {
   try {
-    await axios.delete(`http://localhost:5000/api/users/${id}`);
+    await axios.delete(`/api/users/${id}`);
     toast.success("User deleted!");
     fetchUsers();
   } catch (err) {
@@ -47,8 +50,8 @@ const Home = () => {
               <td className="p-2 border text-center">{user.age}</td>
               <td className="p-2 border text-center">{user.email}</td>
               <td className="p-2 border text-center">
-                <button onClick={() => navigate(`/edit/${user._id}`)} className=" mr-2 bg-yellow-500 px-3 py-1 text-white rounded">Edit</button>
-                <button onClick={() => deleteUser(user._id)} className="bg-red-500 px-3 py-1 text-white rounded">Delete</button>
+                <button onClick={() => navigate(`/edit/${user._id}`)} className=" mr-2 bg-green-500 px-3 py-1 text-white rounded">Edit</button>
+                <button onClick={() => deleteUser(user._id)} className="bg-red-500 px-3  mt-2 py-1 text-white rounded">Delete</button>
               </td>
             </tr>
           ))}

@@ -2,6 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+axios.defaults.baseURL = backendUrl;
 
 const Create = () => {
   const [form, setForm] = useState({ name: "", age: "", email: "" });
@@ -15,7 +17,7 @@ const Create = () => {
   e.preventDefault();
   
   try {
-    await axios.post("http://localhost:5000/api/users", form);
+    await axios.post("/api/users", form);
     toast.success("User created successfully!");
     navigate("/");
   } catch (err) {
