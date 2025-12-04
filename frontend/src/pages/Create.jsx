@@ -1,9 +1,7 @@
 import { useState } from "react";
-import axios from "axios";
+import axios from "../utils/axiosConfig";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
-axios.defaults.baseURL = backendUrl;
 
 const Create = () => {
   const [form, setForm] = useState({ name: "", age: "", email: "" });
@@ -19,7 +17,7 @@ const Create = () => {
   try {
     await axios.post("/api/users", form);
     toast.success("User created successfully!");
-    navigate("/");
+    navigate("/home");
   } catch (err) {
     toast.error("Failed to create user",err);
   }

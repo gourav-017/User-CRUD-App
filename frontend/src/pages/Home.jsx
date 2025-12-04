@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import axios from "axios";
-
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
-axios.defaults.baseURL = backendUrl;
+import axios from "../utils/axiosConfig";
 
 const Home = () => {
   const [users, setUsers] = useState([]);
@@ -33,7 +30,19 @@ const Home = () => {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">User List</h1>
-      <button onClick={() => navigate("/create")} className="mb-4 px-4 py-2 bg-blue-500 text-white rounded">Add User</button>
+      <div className="flex justify-between items-center mb-4">
+        <button onClick={() => navigate("/create")} className="px-4 py-2 bg-blue-500 text-white rounded">Add User</button>
+        <button
+          onClick={() => {
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            navigate("/login");
+          }}
+          className="px-4 py-2 bg-red-500 text-white rounded"
+        >
+          Logout
+        </button>
+      </div>
       <table className="w-full border">
         <thead className="bg-gray-100 text-center">
           <tr>

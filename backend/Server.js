@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import connectDB from "./config/db.js";
 import UserRoutes from "./routes/UserRoute.js";
+import AuthRoutes from "./routes/AuthRoute.js";
 
 // Initialize Express App
 const app = express();
@@ -13,6 +14,7 @@ app.use(express.json());
 
 // Routes
 app.use("/api/users", UserRoutes);
+app.use("/api/auth", AuthRoutes);
 
 
 // Main function 

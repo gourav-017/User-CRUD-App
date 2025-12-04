@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../utils/axiosConfig";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
-axios.defaults.baseURL = backendUrl;
 
 const Edit = () => {
   const { id } = useParams();
@@ -29,7 +26,7 @@ const Edit = () => {
   try {
     await axios.put(`/api/users/${id}`, form);
     toast.success("User updated successfully!");
-    navigate("/");
+    navigate("/home");
   } catch (err) {
     toast.error("Update failed",err);
   }
