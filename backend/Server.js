@@ -8,7 +8,7 @@ import AuthRoutes from "./routes/AuthRoute.js";
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({origin: "http://localhost:5173"}));
 app.use(express.json());
 
 
@@ -16,13 +16,14 @@ app.use(express.json());
 app.use("/api/users", UserRoutes);
 app.use("/api/auth", AuthRoutes);
 
+await connectDB(); // MongoDB connect
 
 // Main function 
-if(process.env.NODE_ENV !== "production"){
-const start = async () => {
+
+
   try {
 
-    await connectDB(); // MongoDB connect
+   
     app.listen(5000, () => {
       console.log("Server is running on port 5000");
     });
@@ -30,7 +31,7 @@ const start = async () => {
     console.error("DB connection failed:", err.message);
     process.exit(1); // Exit with failure
   }
-};
-start();
-};
+
+
+
 export default app

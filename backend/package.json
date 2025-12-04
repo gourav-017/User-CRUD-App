@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "Server.js",
   "scripts": {
-    "dev": "node Server.js"
+    "start": "node Server.js"
   },
   "type": "module",
   "keywords": [],
